@@ -138,6 +138,7 @@ export const Explorer = ({
   const [liveHits, setLiveHits] = useState(0);
   const [browserTabFocus, setBrowserTabFocus] = useState(true);
   const [liveTimestamp, setLiveTimestamp] = useState(DATE_PICKER_FORMAT);
+  const [isInvalidDataConfigOptionSelected, setIsInvalidDataConfigOptionSelected] = useState<Boolean>(false);
 
   const queryRef = useRef();
   const selectedPanelNameRef = useRef('');
@@ -714,6 +715,9 @@ export const Explorer = ({
     });
   }, [curVisId, explorerVisualizations, explorerFields, query, userVizConfigs]);
 
+  const handleIsInvalidConfigOption = (isInvalidConfig: Boolean) =>
+    setIsInvalidDataConfigOptionSelected(isInvalidConfig);
+
   const getExplorerVis = () => {
     return (
       <ExplorerVisualizations
@@ -726,6 +730,7 @@ export const Explorer = ({
         handleAddField={handleAddField}
         handleRemoveField={handleRemoveField}
         visualizations={visualizations}
+        updateIsDataConfigOptionsInvalid={handleIsInvalidConfigOption}
       />
     );
   };
@@ -813,6 +818,10 @@ export const Explorer = ({
     if (isEmpty(selectedPanelNameRef.current)) {
       setIsPanelTextFieldInvalid(true);
       setToast('Name field cannot be empty.', 'danger');
+      return;
+    }
+    if (isInvalidDataConfigOptionSelected) {
+      setToast('Invalid value options configuration selected.', 'danger');
       return;
     }
     setIsPanelTextFieldInvalid(false);
@@ -1071,7 +1080,7 @@ export const Explorer = ({
   const popoverItems: ReactElement[] = LIVE_OPTIONS.map((e) => {
     return (
     <EuiContextMenuItem
-      key={e.label} 
+      key={e.label}
       onClick={async () => {
         liveTailLoop(e.label, e.startTime, LIVE_END_TIME, e.delayTime);
       }}
