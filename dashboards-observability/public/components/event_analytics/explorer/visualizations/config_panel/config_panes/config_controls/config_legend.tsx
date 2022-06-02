@@ -10,11 +10,11 @@ import { IConfigPanelOptionSection } from '../../../../../../../../common/types/
 
 export const ConfigLegend = ({ schemas, vizState, handleConfigChange }: any) => {
     const handleConfigurationChange = useCallback(
-        (stateFiledName) => {
+        (stateFieldName) => {
             return (changes) => {
                 handleConfigChange({
                     ...vizState,
-                    [stateFiledName]: changes,
+                    [stateFieldName]: changes,
                 });
             };
         },

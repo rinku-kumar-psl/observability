@@ -186,7 +186,7 @@ export interface IConfigPanelOptions {
 export interface IConfigPanelOptionSection {
   name: string;
   component: null;
-  mapTo: 'mode' | string;
+  mapTo: string;
   props?: any;
   isSingleSelection?: boolean;
   defaultState?: number;
