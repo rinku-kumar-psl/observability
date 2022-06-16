@@ -10,7 +10,7 @@ import { LONG_CHART_COLOR, PLOTLY_COLOR } from '../../../../../common/constants/
 import { AvailabilityUnitType } from '../../../event_analytics/explorer/visualizations/config_panel/config_panes/config_controls/config_availability';
 import { ThresholdUnitType } from '../../../event_analytics/explorer/visualizations/config_panel/config_panes/config_controls/config_thresholds';
 import { hexToRgba } from '../../../event_analytics/utils/utils';
-import {  FILLOPACITY_DIV_FACTOR } from '../../../../../common/constants/shared';
+import { FILLOPACITY_DIV_FACTOR } from '../../../../../common/constants/shared';
 
 export const Bar = ({ visualizations, layout, config }: any) => {
   const { vis } = visualizations;
@@ -53,6 +53,7 @@ export const Bar = ({ visualizations, layout, config }: any) => {
   // determine category axis
   let bars = valueSeries.map((field: any, index: number) => {
     const selectedColor = getSelectedColorTheme(field, index);
+    const multiYaxis = { yaxis: `y${index + 1}` };
     return {
       x: isVertical
         ? data[!isEmpty(xaxis) ? xaxis[0].label : fields[lastIndex].name]
@@ -70,8 +71,11 @@ export const Bar = ({ visualizations, layout, config }: any) => {
       },
       name: field.name,
       orientation: barOrientation,
+      ...(index >= 1 && multiYaxis)
     };
   });
+  console.log("valueSeries: ", valueSeries);
+  console.log("bars: ", bars);
 
   // If chart has length of result buckets < 16
   // then use the LONG_CHART_COLOR for all the bars in the chart
@@ -95,8 +99,16 @@ export const Bar = ({ visualizations, layout, config }: any) => {
       orientation: legendPosition,
     },
     showlegend: showLegend,
+    yaxis2: {
+      title: 'yaxis2 title',
+      titlefont: { color: 'rgb(148, 103, 189)' },
+      tickfont: { color: 'rgb(148, 103, 189)' },
+      overlaying: 'y',
+      side: 'right'
+    }
   };
 
+  console.log("mergedLayout: ", mergedLayout);
   if (dataConfig.thresholds || availabilityConfig.level) {
     const thresholdTraces = {
       x: [],
