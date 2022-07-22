@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, Fragment } from 'react';
 import { EuiAccordion, EuiSpacer, EuiForm } from '@elastic/eui';
 import { PanelItem } from './config_panel_item';
 import { SPECTRUM, OPACITY } from '../../../../../../../../common/constants/colors';
@@ -127,12 +127,12 @@ export const ConfigChartOptions = ({
           };
         }
         return (
-          <>
+          <Fragment key={`viz-series-${index}`}>
             <EuiForm component="form">
-              <DimensionComponent key={`viz-series-${index}`} {...params} />
+              <DimensionComponent  {...params} />
               <EuiSpacer size="s" />
             </EuiForm>
-          </>
+          </Fragment>
         );
       })
     );

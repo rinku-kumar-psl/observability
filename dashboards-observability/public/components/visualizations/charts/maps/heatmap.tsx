@@ -124,10 +124,11 @@ export const HeatMap = ({ visualizations, layout, config }: any) => {
     title: dataConfig?.panelOptions?.title || layoutConfig.layout?.title || '',
   };
 
-  const mergedConfigs = {
+
+  const mergedConfigs = useMemo(() => ({
     ...config,
     ...(layoutConfig.config && layoutConfig.config),
-  };
+  }), [config, layoutConfig.config]);
 
   return <Plt data={heapMapData} layout={mergedLayout} config={mergedConfigs} />;
 };

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { take, isEmpty } from 'lodash';
 import { Plt } from '../../plotly/plot';
 import { DEFAULT_PALETTE, HEX_CONTRAST_COLOR } from '../../../../../common/constants/colors';
@@ -17,11 +17,11 @@ export const Pie = ({ visualizations, layout, config }: any) => {
   } = visualizations.data.rawVizData;
   const { defaultAxes } = visualizations.data;
   const { dataConfig = {}, layoutConfig = {} } = visualizations?.data?.userConfigs;
-  const xaxis = visualizations.data?.rawVizData?.pie?.dataConfig?.dimensions 
-    ? visualizations.data?.rawVizData?.pie?.dataConfig?.dimensions.filter((item)  => item.label)
+  const xaxis = visualizations.data?.rawVizData?.pie?.dataConfig?.dimensions
+    ? visualizations.data?.rawVizData?.pie?.dataConfig?.dimensions.filter((item) => item.label)
     : [];
   const yaxis = visualizations.data?.rawVizData?.pie?.dataConfig?.metrics
-    ? visualizations.data?.rawVizData?.pie?.dataConfig?.metrics.filter((item)  => item.label)
+    ? visualizations.data?.rawVizData?.pie?.dataConfig?.metrics.filter((item) => item.label)
     : [];
   const type = dataConfig?.chartStyles?.mode ? dataConfig?.chartStyles?.mode[0]?.modeId : 'pie';
   const lastIndex = fields.length - 1;
@@ -36,23 +36,23 @@ export const Pie = ({ visualizations, layout, config }: any) => {
   if (isEmpty(xaxis) || isEmpty(yaxis))
     return <EmptyPlaceholder icon={visualizations?.vis?.iconType} />;
 
-  let valueSeries;
-  if (!isEmpty(xaxis) && !isEmpty(yaxis)) {
-    valueSeries = [...yaxis];
-  } else {
-    valueSeries = defaultAxes.yaxis || take(fields, lastIndex > 0 ? lastIndex : 1);
-  }
+    let valueSeries;
+    if (!isEmpty(xaxis) && !isEmpty(yaxis)) {
+      valueSeries = [...yaxis];
+    } else {
+      valueSeries = defaultAxes.yaxis || take(fields, lastIndex > 0 ? lastIndex : 1);
+    }
 
   const invertHex = (hex: string) =>
     (Number(`0x1${hex}`) ^ HEX_CONTRAST_COLOR).toString(16).substr(1).toUpperCase();
 
-  const createLegendLabels = (dimLabels: string[], xaxisLables:string[] ) => {
-    return dimLabels.map((label:string, index:number) => {
+  const createLegendLabels = (dimLabels: string[], xaxisLables: string[]) => {
+    return dimLabels.map((label: string, index: number) => {
       return [xaxisLables[index], label].join(',');
     });
   };
-  
-  const labelsOfXAxis = () => {
+
+  const labelsOfXAxis = useMemo(() => {
     let legendLabels = [];
     if (xaxis.length > 0) {
       let dimLabelsArray = data[xaxis[0].label];
@@ -64,20 +64,21 @@ export const Pie = ({ visualizations, layout, config }: any) => {
       legendLabels = data[fields[lastIndex].name];
     }
     return legendLabels;
-  };
+  }, [xaxis, data, fields, createLegendLabels]);
 
-  const pies = valueSeries.map((field: any, index) => {
+  const hexColor = invertHex(colorTheme);
+  const pies = useMemo(() => valueSeries.map((field: any, index: number) => {
     const marker =
       colorTheme.name !== DEFAULT_PALETTE
         ? {
-            marker: {
-              colors: [...Array(data[field.name].length).fill(colorTheme.childColor)],
-              line: {
-                color: invertHex(colorTheme),
-                width: 1,
-              },
+          marker: {
+            colors: [...Array(data[field.name].length).fill(colorTheme.childColor)],
+            line: {
+              color: hexColor,
+              width: 1,
             },
-          }
+          },
+        }
         : undefined;
     return {
       labels: labelsOfXAxis(),
@@ -98,11 +99,12 @@ export const Pie = ({ visualizations, layout, config }: any) => {
         size: labelSize,
       },
     };
-  });
+  })
+    , [valueSeries, valueSeries, data, labelSize, labelsOfXAxis, colorTheme]);
 
   const isAtleastOneFullRow = Math.floor(valueSeries.length / 3) > 0;
 
-  const mergedLayout = {
+  const mergedLayout = useMemo(() => ({
     grid: {
       rows: Math.floor(valueSeries.length / 3) + 1,
       columns: isAtleastOneFullRow ? 3 : valueSeries.length,
@@ -116,12 +118,22 @@ export const Pie = ({ visualizations, layout, config }: any) => {
       font: { size: legendSize },
     },
     showlegend: showLegend,
-  };
+  }),
+    [
+      valueSeries,
+      isAtleastOneFullRow,
+      layoutConfig.layout,
+      dataConfig?.panelOptions?.title,
+      layoutConfig.layout?.title,
+      layout.legend,
+      legendPosition,
+      legendSize
+    ]);
 
-  const mergedConfigs = {
+  const mergedConfigs = useMemo(() => ({
     ...config,
     ...(layoutConfig.config && layoutConfig.config),
-  };
+  }), [config, layoutConfig.config]);
 
   return <Plt data={pies} layout={mergedLayout} config={mergedConfigs} />;
 };

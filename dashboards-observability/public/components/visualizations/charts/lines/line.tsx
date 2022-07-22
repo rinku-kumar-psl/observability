@@ -211,10 +211,10 @@ export const Line = ({ visualizations, layout, config }: any) => {
     return [mergedLayout, calculatedLineValues];
   }, [data, fields, lastIndex, layout, layoutConfig, xaxis, yaxis, mode, valueSeries]);
 
-  const mergedConfigs = {
+  const mergedConfigs = useMemo(() => ({
     ...config,
     ...(layoutConfig.config && layoutConfig.config),
-  };
+  }), [config, layoutConfig.config]);
 
   return isDimensionTimestamp ? (
     <Plt data={lineValues} layout={calculatedLayout} config={mergedConfigs} />
