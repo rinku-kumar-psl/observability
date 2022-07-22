@@ -81,7 +81,7 @@ export const Pie = ({ visualizations, layout, config }: any) => {
         }
         : undefined;
     return {
-      labels: labelsOfXAxis(),
+      labels: labelsOfXAxis,
       values: data[field.label],
       type: 'pie',
       name: field.name,
