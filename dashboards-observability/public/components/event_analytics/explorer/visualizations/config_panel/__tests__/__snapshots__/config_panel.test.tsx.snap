@@ -5344,72 +5344,52 @@ exports[`Config panel component Renders config panel with visualization data 1`]
                                     "type": "text",
                                   },
                                   Object {
-                                    "name": "sum_bytes",
-                                    "type": "long",
+                                    "editor": [Function],
+                                    "id": "availability-panel",
+                                    "mapTo": "availabilityConfig",
+                                    "name": "Availability",
                                   },
                                 ],
-                                "selectedFields": Array [],
-                                "unselectedFields": Array [],
                               },
-                              "query": Object {},
-                              "rawVizData": Object {
-                                "data": Object {
-                                  "count()": Array [
-                                    154,
-                                    1753,
-                                    116,
-                                    468,
-                                    1964,
-                                    219,
-                                  ],
-                                  "tags": Array [
-                                    "error",
-                                    "info",
-                                    "login",
-                                    "security",
-                                    "success",
-                                    "warning",
-                                  ],
+                              "fillOpacity": 80,
+                              "fullLabel": "Bar",
+                              "groupWidth": 0.7,
+                              "icon": [Function],
+                              "iconType": "visBarVerticalStacked",
+                              "id": "bar",
+                              "label": "Bar",
+                              "labelAngle": 0,
+                              "legendPosition": "v",
+                              "lineWidth": 1,
+                              "mode": "group",
+                              "name": "bar",
+                              "orientation": "v",
+                              "selection": Object {
+                                "dataLoss": "nothing",
+                              },
+                              "seriesAxis": "yaxis",
+                              "showLegend": "show",
+                              "type": "bar",
+                              "visConfig": Object {
+                                "config": Object {
+                                  "displaylogo": false,
+                                  "responsive": true,
                                 },
-                                "jsonData": Array [
-                                  Object {
-                                    "count()": 154,
-                                    "tags": "error",
+                                "isUniColor": false,
+                                "layout": Object {
+                                  "height": 1180,
+                                  "legend": Object {
+                                    "orientation": "v",
+                                    "traceorder": "normal",
                                   },
-                                  Object {
-                                    "count()": 1753,
-                                    "tags": "info",
+                                  "margin": Object {
+                                    "b": 30,
+                                    "l": 60,
+                                    "pad": 0,
+                                    "r": 30,
+                                    "t": 50,
                                   },
-                                  Object {
-                                    "count()": 116,
-                                    "tags": "login",
-                                  },
-                                  Object {
-                                    "count()": 468,
-                                    "tags": "security",
-                                  },
-                                  Object {
-                                    "count()": 1964,
-                                    "tags": "success",
-                                  },
-                                  Object {
-                                    "count()": 219,
-                                    "tags": "warning",
-                                  },
-                                ],
-                                "metadata": Object {
-                                  "fields": Array [
-                                    Object {
-                                      "name": "count()",
-                                      "type": "integer",
-                                    },
-                                    Object {
-                                      "name": "tags",
-                                      "type": "text",
-                                    },
-                                  ],
-                                  "size": 6,
-                                  "status": 200,
+                                  "showlegend": true,
                                 },
                               },
                               "userConfigs": Object {},
@@ -5635,6 +5615,243 @@ exports[`Config panel component Renders config panel with visualization data 1`]
                                     "mapTo": "layoutConfig",
                                     "name": "Layout",
                                   },
+                                  Object {
+                                    "editor": [Function],
+                                    "id": "availability-panel",
+                                    "mapTo": "availabilityConfig",
+                                    "name": "Availability",
+                                  },
+                                ],
+                              }
+                            }
+                            fillOpacity={80}
+                            fullLabel="Bar"
+                            groupWidth={0.7}
+                            icon={[Function]}
+                            iconType="visBarVerticalStacked"
+                            id="bar"
+                            labelAngle={0}
+                            legendPosition="v"
+                            lineWidth={1}
+                            mode="group"
+                            name="bar"
+                            orientation="v"
+                            selection={
+                              Object {
+                                "dataLoss": "nothing",
+                              }
+                            }
+                            seriesAxis="yaxis"
+                            showLegend="show"
+                            title="Bar"
+                            type="bar"
+                            visConfig={
+                              Object {
+                                "config": Object {
+                                  "displaylogo": false,
+                                  "responsive": true,
+                                },
+                                "isUniColor": false,
+                                "layout": Object {
+                                  "height": 1180,
+                                  "legend": Object {
+                                    "orientation": "v",
+                                    "traceorder": "normal",
+                                  },
+                                  "margin": Object {
+                                    "b": 30,
+                                    "l": 60,
+                                    "pad": 0,
+                                    "r": 30,
+                                    "t": 50,
+                                  },
+                                  "showlegend": true,
+                                },
+                              }
+                            }
+                          >
+                            <EuiInnerText>
+                              <span
+                                barWidth={0.97}
+                                category="Visualizations"
+                                categoryAxis="xaxis"
+                                className="euiBadge euiBadge--hollow euiBadge--iconLeft euiComboBoxPill"
+                                component={[Function]}
+                                editorConfig={
+                                  Object {
+                                    "panelTabs": Array [
+                                      Object {
+                                        "editor": [Function],
+                                        "id": "data-panel",
+                                        "mapTo": "dataConfig",
+                                        "name": "Data",
+                                        "sections": Array [
+                                          Object {
+                                            "editor": [Function],
+                                            "id": "legend",
+                                            "mapTo": "legend",
+                                            "name": "Legend",
+                                            "schemas": Array [
+                                              Object {
+                                                "component": null,
+                                                "mapTo": "showLegend",
+                                                "name": "Show Legend",
+                                                "props": Object {
+                                                  "defaultSelections": Array [
+                                                    Object {
+                                                      "id": "show",
+                                                      "name": "Show",
+                                                    },
+                                                  ],
+                                                  "options": Array [
+                                                    Object {
+                                                      "id": "show",
+                                                      "name": "Show",
+                                                    },
+                                                    Object {
+                                                      "id": "hidden",
+                                                      "name": "Hidden",
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                              Object {
+                                                "component": null,
+                                                "mapTo": "position",
+                                                "name": "Position",
+                                                "props": Object {
+                                                  "defaultSelections": Array [
+                                                    Object {
+                                                      "id": "v",
+                                                      "name": "Right",
+                                                    },
+                                                  ],
+                                                  "options": Array [
+                                                    Object {
+                                                      "id": "v",
+                                                      "name": "Right",
+                                                    },
+                                                    Object {
+                                                      "id": "h",
+                                                      "name": "Bottom",
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                          Object {
+                                            "component": [Function],
+                                            "eleType": "input",
+                                            "mapTo": "labelSize",
+                                            "name": "Label Size",
+                                          },
+                                          Object {
+                                            "component": [Function],
+                                            "defaultState": 0,
+                                            "eleType": "slider",
+                                            "mapTo": "rotateBarLabels",
+                                            "name": "Rotate bar labels",
+                                            "props": Object {
+                                              "max": 90,
+                                              "min": -90,
+                                              "showTicks": true,
+                                              "ticks": Array [
+                                                Object {
+                                                  "label": "-90°",
+                                                  "value": -90,
+                                                },
+                                              },
+                                              Object {
+                                                "component": [Function],
+                                                "defaultState": 0.7,
+                                                "eleType": "slider",
+                                                "mapTo": "groupWidth",
+                                                "name": "Group width",
+                                                "props": Object {
+                                                  "max": 1,
+                                                  "step": 0.01,
+                                                },
+                                              },
+                                              Object {
+                                                "component": [Function],
+                                                "defaultState": 0.97,
+                                                "eleType": "slider",
+                                                "mapTo": "barWidth",
+                                                "name": "Bar width",
+                                                "props": Object {
+                                                  "max": 1,
+                                                  "step": 0.01,
+                                                },
+                                              },
+                                              Object {
+                                                "component": [Function],
+                                                "defaultState": 1,
+                                                "eleType": "slider",
+                                                "mapTo": "lineWidth",
+                                                "name": "Line width",
+                                                "props": Object {
+                                                  "max": 10,
+                                                },
+                                              },
+                                              Object {
+                                                "component": [Function],
+                                                "defaultState": 80,
+                                                "eleType": "slider",
+                                                "mapTo": "fillOpacity",
+                                                "name": "Fill Opacity",
+                                                "props": Object {
+                                                  "max": 100,
+                                                },
+                                              },
+                                            ],
+                                          },
+                                          Object {
+                                            "editor": [Function],
+                                            "id": "color-theme",
+                                            "mapTo": "colorTheme",
+                                            "name": "Color Theme",
+                                            "schemas": Array [],
+                                          },
+                                        ],
+                                      },
+                                      Object {
+                                        "content": Array [],
+                                        "editor": [Function],
+                                        "id": "style-panel",
+                                        "mapTo": "layoutConfig",
+                                        "name": "Layout",
+                                      },
+                                      Object {
+                                        "editor": [Function],
+                                        "id": "availability-panel",
+                                        "mapTo": "availabilityConfig",
+                                        "name": "Availability",
+                                      },
+                                    ],
+                                  }
+                                }
+                                fillOpacity={80}
+                                fullLabel="Bar"
+                                groupWidth={0.7}
+                                icon={[Function]}
+                                id="bar"
+                                labelAngle={0}
+                                legendPosition="v"
+                                lineWidth={1}
+                                mode="group"
+                                name="bar"
+                                orientation="v"
+                                selection={
+                                  Object {
+                                    "dataLoss": "nothing",
+                                  }
+                                }
+                                seriesAxis="yaxis"
+                                showLegend="show"
+                                title="Bar"
+                                type="bar"
+                                visConfig={
                                   Object {
                                     "editor": [Function],
                                     "id": "availability-panel",
