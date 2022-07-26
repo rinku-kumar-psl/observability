@@ -41,21 +41,21 @@ export const Bar = ({ visualizations, layout, config }: any) => {
     valueSeries = isVertical ? [...yaxis] : [...xaxis];
     valueForXSeries = isVertical ? [...xaxis] : [...yaxis];
   } else {
-    return <EmptyPlaceholder icon={visualizations?.vis?.iconType} />;
+    return <EmptyPlaceholder icon={visualizations?.vis?.icontype} />;
   }
 
-  const tickAngle = dataConfig?.chartStyles?.rotateBarLabels || vis.labelAngle;
-  const lineWidth = dataConfig?.chartStyles?.lineWidth || vis.lineWidth;
+  const tickAngle = dataConfig?.chartStyles?.rotateBarLabels || vis.labelangle;
+  const lineWidth = dataConfig?.chartStyles?.lineWidth || vis.linewidth;
   const fillOpacity =
     dataConfig?.chartStyles?.fillOpacity !== undefined
       ? dataConfig?.chartStyles?.fillOpacity / FILLOPACITY_DIV_FACTOR
-      : vis.fillOpacity / FILLOPACITY_DIV_FACTOR;
-  const barWidth = 1 - (dataConfig?.chartStyles?.barWidth || vis.barWidth);
-  const groupWidth = 1 - (dataConfig?.chartStyles?.groupWidth || vis.groupWidth);
+      : vis.fillopacity / FILLOPACITY_DIV_FACTOR;
+  const barWidth = 1 - (dataConfig?.chartStyles?.barWidth || vis.barwidth);
+  const groupWidth = 1 - (dataConfig?.chartStyles?.groupWidth || vis.groupwidth);
   const showLegend = !(
-    dataConfig?.legend?.showLegend && dataConfig.legend.showLegend !== vis.showLegend
+    dataConfig?.legend?.showLegend && dataConfig.legend.showLegend !== vis.showlegend
   );
-  const legendPosition = dataConfig?.legend?.position || vis.legendPosition;
+  const legendPosition = dataConfig?.legend?.position || vis.legendposition;
   visualizations.data?.rawVizData?.dataConfig?.metrics
     ? visualizations.data?.rawVizData?.dataConfig?.metrics
     : [];

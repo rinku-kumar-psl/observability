@@ -98,7 +98,7 @@ export const ConfigChartOptions = ({
           params = {
             ...params,
             title: schema.name,
-            currentValue: vizState[schema.mapTo],
+            currentValue: vizState[schema.mapTo] || false,
             onToggle: handleConfigurationChange(schema.mapTo),
           };
         } else if (schema.eleType === 'buttons') {

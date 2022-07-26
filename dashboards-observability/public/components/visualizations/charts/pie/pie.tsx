@@ -28,13 +28,13 @@ export const Pie = ({ visualizations, layout, config }: any) => {
   const colorTheme = dataConfig?.chartStyles?.colorTheme
     ? dataConfig?.chartStyles?.colorTheme
     : { name: DEFAULT_PALETTE };
-  const showLegend = dataConfig?.legend?.showLegend === 'hidden' ? false : vis.showLegend;
-  const legendPosition = dataConfig?.legend?.position || vis.legendPosition;
+  const showLegend = dataConfig?.legend?.showLegend === 'hidden' ? false : vis.showlegend;
+  const legendPosition = dataConfig?.legend?.position || vis.legendposition;
   const legendSize = dataConfig?.legend?.size || vis.legendSize;
   const labelSize = dataConfig?.chartStyles?.labelSize || vis.labelSize;
 
   if (isEmpty(xaxis) || isEmpty(yaxis))
-    return <EmptyPlaceholder icon={visualizations?.vis?.iconType} />;
+    return <EmptyPlaceholder icon={visualizations?.vis?.icontype} />;
 
     let valueSeries;
     if (!isEmpty(xaxis) && !isEmpty(yaxis)) {

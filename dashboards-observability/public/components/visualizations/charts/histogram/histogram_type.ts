@@ -25,14 +25,14 @@ export const createHistogramVisDefinition = (params = {}) => ({
   type: 'histogram',
   id: 'histogram',
   label: 'Histogram',
-  fullLabel: 'Histogram',
+  fulllabel: 'Histogram',
   category: VIS_CATEGORY.BASICS,
   selection: {
     dataLoss: 'nothing',
   },
-  valueSeries: 'yaxis',
-  iconType: 'visArea',
-  editorConfig: {
+  valueseries: 'yaxis',
+  icontype: 'visArea',
+  editorconfig: {
     panelTabs: [
       {
         id: 'data-panel',
@@ -118,7 +118,7 @@ export const createHistogramVisDefinition = (params = {}) => ({
       },
     ],
   },
-  visConfig: {
+  visconfig: {
     layout: {
       ...sharedConfigs.layout,
     },
