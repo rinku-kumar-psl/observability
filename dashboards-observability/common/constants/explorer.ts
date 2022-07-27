@@ -138,7 +138,7 @@ export interface DefaultGaugeChartParametersProps {
   GaugeTitleSize: number,
   DisplayDefaultGauges: number,
   OrientationDefault: string,
-  TickLength: number, 
+  TickLength: number,
   LegendPlacement: string,
   ThresholdsMaxLimit: number
 };
@@ -150,4 +150,15 @@ export const DefaultGaugeChartParameters: DefaultGaugeChartParametersProps = {
   TickLength: 5,
   LegendPlacement: 'center',
   ThresholdsMaxLimit: 1
+}
+
+export enum elementTypes {
+  PalettePicker = 'palettePicker',
+  SingleColorPicker = 'singleColorPicker',
+  Colorpicker = 'colorpicker',
+  TreemapColorPicker = 'treemapColorPicker',
+  Input = 'input',
+  Slider = 'slider',
+  SwitchButton = 'switchButton',
+  Buttons = 'buttons'
 }

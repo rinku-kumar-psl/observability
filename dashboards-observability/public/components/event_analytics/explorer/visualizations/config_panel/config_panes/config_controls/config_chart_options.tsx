@@ -7,6 +7,7 @@ import React, { useMemo, useCallback, Fragment } from 'react';
 import { EuiAccordion, EuiSpacer, EuiForm } from '@elastic/eui';
 import { PanelItem } from './config_panel_item';
 import { SPECTRUM, OPACITY } from '../../../../../../../../common/constants/colors';
+import { elementTypes } from '../../../../../../../../common/constants/explorer';
 
 export const ConfigChartOptions = ({
   visualizations,
@@ -15,8 +16,7 @@ export const ConfigChartOptions = ({
   handleConfigChange,
 }: any) => {
   const { data } = visualizations;
-  const { data: vizData = {}, metadata: { fields = [] } = {}, tree_map } = data?.rawVizData;
-  const { dataConfig = {}, layoutConfig = {} } = visualizations?.data?.userConfigs;
+  const {  metadata: { fields = [] } = {}, tree_map } = data?.rawVizData;
 
   const handleConfigurationChange = useCallback(
     (stateFiledName) => {
@@ -50,82 +50,93 @@ export const ConfigChartOptions = ({
           ...schema.props,
         };
         const DimensionComponent = schema.component || PanelItem;
-        if (schema.eleType === 'palettePicker') {
-          params = {
-            ...params,
-            colorPalettes: schema.options || [],
-            selectedColor: vizState[schema.mapTo] || schema.defaultState,
-            onSelectChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'singleColorPicker') {
-          params = {
-            ...params,
-            selectedColor: vizState[schema.mapTo] || schema.defaultState,
-            onSelectChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'colorpicker') {
-          params = {
-            ...params,
-            selectedColor: vizState[schema.mapTo] || schema?.defaultState,
-            colorPalettes: schema.options || [],
-            onSelectChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'treemapColorPicker') {
-          params = {
-            ...params,
-            selectedColor: vizState[schema.mapTo] || schema?.defaultState,
-            colorPalettes: schema.options || [],
-            numberOfParents:
-              (tree_map?.dataConfig?.dimensions !== undefined &&
-                tree_map?.dataConfig.dimensions[0].parentFields.length) | 0,
-            onSelectChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'input') {
-          params = {
-            ...params,
-            currentValue: vizState[schema.mapTo] || '',
-            numValue: vizState[schema.mapTo] || '',
-            handleInputChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'slider') {
-          params = {
-            ...params,
-            maxRange: schema.props.max,
-            currentRange: vizState[schema.mapTo] || schema?.defaultState,
-            handleSliderChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'switchButton') {
-          params = {
-            ...params,
-            title: schema.name,
-            currentValue: vizState[schema.mapTo] || false,
-            onToggle: handleConfigurationChange(schema.mapTo),
-          };
-        } else if (schema.eleType === 'buttons') {
-          params = {
-            ...params,
-            title: schema.name,
-            legend: schema.name,
-            groupOptions: schema?.props?.options.map((btn: { name: string }) => ({
-              ...btn,
-              label: btn.name,
-            })),
-            idSelected: vizState[schema.mapTo] || schema?.props?.defaultSelections[0]?.id,
-            handleButtonChange: handleConfigurationChange(schema.mapTo),
-          };
-        } else {
-          params = {
-            ...params,
-            paddingTitle: schema.name,
-            advancedTitle: 'advancedTitle',
-            dropdownList:
-              schema?.options?.map((option) => ({ ...option })) ||
-              fields.map((item) => ({ ...item })),
-            onSelectChange: handleConfigurationChange(schema.mapTo),
-            isSingleSelection: schema.isSingleSelection,
-            selectedAxis: vizState[schema.mapTo] || schema.defaultState,
-          };
+        const { eleType } = schema;
+        switch (eleType) {
+          case elementTypes.PalettePicker:
+            params = {
+              ...params,
+              colorPalettes: schema.options || [],
+              selectedColor: vizState[schema.mapTo] || schema.defaultState,
+              onSelectChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.SingleColorPicker:
+            params = {
+              ...params,
+              selectedColor: vizState[schema.mapTo] || schema.defaultState,
+              onSelectChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.Colorpicker:
+            params = {
+              ...params,
+              selectedColor: vizState[schema.mapTo] || schema?.defaultState,
+              colorPalettes: schema.options || [],
+              onSelectChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.TreemapColorPicker:
+            params = {
+              ...params,
+              selectedColor: vizState[schema.mapTo] || schema?.defaultState,
+              colorPalettes: schema.options || [],
+              numberOfParents:
+                (tree_map?.dataConfig?.dimensions !== undefined &&
+                  tree_map?.dataConfig.dimensions[0].parentFields.length) | 0,
+              onSelectChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.Input:
+            params = {
+              ...params,
+              currentValue: vizState[schema.mapTo] || '',
+              numValue: vizState[schema.mapTo] || '',
+              handleInputChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.Slider:
+            params = {
+              ...params,
+              maxRange: schema.props.max,
+              currentRange: vizState[schema.mapTo] || schema?.defaultState,
+              handleSliderChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.SwitchButton:
+            params = {
+              ...params,
+              title: schema.name,
+              currentValue: vizState[schema.mapTo] || false,
+              onToggle: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          case elementTypes.Buttons:
+            params = {
+              ...params,
+              title: schema.name,
+              legend: schema.name,
+              groupOptions: schema?.props?.options.map((btn: { name: string }) => ({
+                ...btn,
+                label: btn.name,
+              })),
+              idSelected: vizState[schema.mapTo] || schema?.props?.defaultSelections[0]?.id,
+              handleButtonChange: handleConfigurationChange(schema.mapTo),
+            };
+            break;
+          default:
+            params = {
+              ...params,
+              paddingTitle: schema.name,
+              advancedTitle: 'advancedTitle',
+              dropdownList:
+                schema?.options?.map((option) => ({ ...option })) ||
+                fields.map((item) => ({ ...item })),
+              onSelectChange: handleConfigurationChange(schema.mapTo),
+              isSingleSelection: schema.isSingleSelection,
+              selectedAxis: vizState[schema.mapTo] || schema.defaultState,
+            };
         }
+
         return (
           <Fragment key={`viz-series-${index}`}>
             <EuiForm component="form">

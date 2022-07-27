@@ -12,7 +12,6 @@ import {
   ConfigLegend,
   SliderConfig,
   ConfigColorTheme,
-  ConfigThresholds,
 } from '../../../event_analytics/explorer/visualizations/config_panel/config_panes/config_controls';
 import { DefaultChartStyles } from '../../../../../common/constants/shared';
 
