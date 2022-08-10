@@ -33,6 +33,17 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
     metadata: { fields = [] },
   } = visualizations.data.rawVizData;
 
+  const { dataConfig = {} } = visualizations?.data?.userConfigs;
+  const enablePagination =
+    typeof dataConfig?.chartStyles?.enablePagination !== 'undefined'
+      ? dataConfig?.chartStyles?.enablePagination
+      : visualizations.vis.enablepagination;
+
+  const showTableHeader =
+    typeof dataConfig?.chartStyles?.showTableHeader !== 'undefined'
+      ? dataConfig?.chartStyles?.showTableHeader
+      : visualizations.vis.showtableheader;
+
   useEffect(() => {
     document.addEventListener('keydown', hideGridFullScreenHandler);
     return () => {
@@ -142,25 +153,47 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
       setIsFullScreen(false);
     }
   };
+
+  // const gridOptions = {
+  //   // PROPERTIES
+  //   // Objects like myRowData and myColDefs would be created in your application
+  //   // rowData: myRowData,
+  //   // columnDefs: myColDefs,
+  //   pagination: false,
+  //   rowSelection: 'single',
+
+  //   // EVENTS
+  //   // Add event handlers
+  //   onRowClicked: (event) => console.log('A row was clicked'),
+  //   onColumnResized: (event) => console.log('A column was resized'),
+  //   onGridReady: (event) => console.log('The grid is now ready'),
+
+  //   // CALLBACKS
+  //   getRowHeight: (params) => 25,
+  // };
+
   return (
     <>
-      <GridHeader
-        isFullScreen={isFullScreen}
-        setIsFullScreenHandler={setIsFullScreenHandler}
-        selectedRowDensity={selectedRowDensity}
-        selectDensityHandler={selectDensityHandler}
-        columnVisiblityHandler={columnVisiblityHandler}
-        columns={columns}
-        columnVisibility={columnVisibility}
-      />
+      {showTableHeader && (
+        <GridHeader
+          isFullScreen={isFullScreen}
+          setIsFullScreenHandler={setIsFullScreenHandler}
+          selectedRowDensity={selectedRowDensity}
+          selectDensityHandler={selectDensityHandler}
+          columnVisiblityHandler={columnVisiblityHandler}
+          columns={columns}
+          columnVisibility={columnVisibility}
+        />
+      )}
       <AgGridReact
+        // gridOptions={gridOptions}
         ref={gridRef}
         rowData={raw_data}
         columnDefs={columns}
         defaultColDef={defaultColDef}
         domLayout={'autoHeight'}
         animateRows
-        pagination
+        pagination={enablePagination}
         paginationPageSize={pageSize}
         suppressPaginationPanel
         rowHeight={selectedRowDensity.height}
@@ -168,13 +201,15 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
           gridRef?.current?.api.setHeaderHeight(HEADER_HEIGHT);
         }}
       />
-      <GridFooter
-        onPageSizeChanged={onPageSizeChanged}
-        pageSize={pageSize}
-        activePage={activePage}
-        goToPage={goToPage}
-        pageCount={pageCount}
-      />
+      {enablePagination && (
+        <GridFooter
+          onPageSizeChanged={onPageSizeChanged}
+          pageSize={pageSize}
+          activePage={activePage}
+          goToPage={goToPage}
+          pageCount={pageCount}
+        />
+      )}
       {isFullScreen && (
         <CustomOverlay>
           <EuiFlexGroup direction="column">
