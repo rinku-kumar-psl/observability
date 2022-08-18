@@ -3,17 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, {
-  useState,
-  useMemo,
-  useCallback,
-  useRef,
-  useEffect,
-} from 'react';
-import {
-  EuiFlexGroup,
-  EuiFlexItem,
-} from '@elastic/eui';
+import React, { useState, useMemo, useCallback, useRef, useEffect } from 'react';
+import { EuiFlexGroup, EuiFlexItem } from '@elastic/eui';
 
 // ag-data-grid
 import { AgGridReact } from 'ag-grid-react';
@@ -25,15 +16,11 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine-dark.css';
 import './data_table.scss';
 
 // grid elements
-import { CustomOverlay, RowConfigType, GridHeader,  } from "./data_table_header"
-import { GridFooter } from "./data_table_footer"
+import { CustomOverlay, RowConfigType, GridHeader } from './data_table_header';
+import { GridFooter } from './data_table_footer';
 
 // constants
-import {
-  COLUMN_DEFAULT_MIN_WIDTH,
-  HEADER_HEIGHT,
-} from '../../../../../common/constants/explorer';
-
+import { COLUMN_DEFAULT_MIN_WIDTH, HEADER_HEIGHT } from '../../../../../common/constants/explorer';
 
 const doubleValueGetter = (params) => {
   return params.data[params.column.colId];
@@ -223,5 +210,3 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
     </>
   );
 };
-
-
