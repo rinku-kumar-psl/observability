@@ -49,6 +49,14 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
       ? dataConfig?.chartStyles?.colunmFilter
       : visualizations.vis.colunmfilter;
 
+  const columnAlignment =
+    dataConfig?.chartStyles?.columnAlignment || visualizations.vis.columnalignment;
+
+  const columnWidth =
+    typeof dataConfig?.chartStyles?.columnWidth !== 'undefined'
+      ? dataConfig?.chartStyles?.columnWidth
+      : visualizations.vis.columnwidth;
+
   useEffect(() => {
     document.addEventListener('keydown', hideGridFullScreenHandler);
     return () => {
@@ -100,8 +108,19 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
       suppressMenu: false,
       minWidth: COLUMN_DEFAULT_MIN_WIDTH,
       headerHeight: 400,
+      type: columnAlignment,
     };
-  }, [colunmFilter]);
+  }, [colunmFilter, columnAlignment]);
+
+  useEffect(() => {
+    if (!dataConfig?.chartStyles?.columnWidth) {
+      gridRef?.current?.api?.sizeColumnsToFit();
+    } else {
+      columns.forEach((col: any) =>
+        gridRef?.current?.columnApi?.setColumnWidth(col.field, Number(columnWidth))
+      );
+    }
+  }, [columnWidth, columns, dataConfig]);
 
   const onPageSizeChanged = useCallback(
     (val: number) => {
@@ -159,24 +178,6 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
     }
   };
 
-  // const gridOptions = {
-  //   // PROPERTIES
-  //   // Objects like myRowData and myColDefs would be created in your application
-  //   // rowData: myRowData,
-  //   // columnDefs: myColDefs,
-  //   pagination: false,
-  //   rowSelection: 'single',
-
-  //   // EVENTS
-  //   // Add event handlers
-  //   onRowClicked: (event) => console.log('A row was clicked'),
-  //   onColumnResized: (event) => console.log('A column was resized'),
-  //   onGridReady: (event) => console.log('The grid is now ready'),
-
-  //   // CALLBACKS
-  //   getRowHeight: (params) => 25,
-  // };
-
   return (
     <>
       {showTableHeader && (
@@ -191,7 +192,6 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
         />
       )}
       <AgGridReact
-        // gridOptions={gridOptions}
         ref={gridRef}
         rowData={raw_data}
         columnDefs={columns}

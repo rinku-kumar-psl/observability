@@ -24,8 +24,8 @@ export const createDatatableTypeDefinition = (params: any = {}) => ({
   type: 'data_table',
   id: 'data_table',
   label: 'Table View',
-  fullLabel: 'Table View',
-  iconType: 'visTable',
+  fulllabel: 'Table View',
+  icontype: 'visTable',
   category: VIS_CATEGORY.BASICS,
   selection: {
     dataLoss: 'nothing',
@@ -34,7 +34,9 @@ export const createDatatableTypeDefinition = (params: any = {}) => ({
   showtableheader: true,
   enablepagination: true,
   colunmfilter: false,
-  editorConfig: {
+  columnalignment: 'leftAligned',
+  columnwidth: 150,
+  editorconfig: {
     panelTabs: [
       {
         id: 'data-panel',
@@ -71,41 +73,25 @@ export const createDatatableTypeDefinition = (params: any = {}) => ({
                 eleType: 'buttons',
                 props: {
                   options: [
-                    { name: 'Auto', id: 'auto' },
-                    { name: 'Left', id: 'left' },
-                    { name: 'Center', id: 'center' },
-                    { name: 'Right', id: 'right' },
+                    { name: 'Left', id: 'leftAligned' },
+                    { name: 'Right', id: 'rightAligned' },
                   ],
-                  defaultSelections: [{ name: 'Auto', id: 'auto' }],
+                  defaultSelections: [{ name: 'Left', id: 'leftAligned' }],
                 },
               },
               {
-                title: 'Minimum column width',
-                name: 'Minimum column width',
-                component: InputFieldItem,
-                mapTo: 'minColumnWidth',
-                eleType: 'input',
-              },
-              {
-                title: 'Column With',
-                name: 'Column With',
+                title: 'Column Width',
+                name: 'Column Width',
                 component: InputFieldItem,
                 mapTo: 'columnWidth',
                 eleType: 'input',
+                currentValue: 150,
               },
               {
                 title: 'Column filter',
                 name: 'Column filter',
                 component: SwitchButton,
                 mapTo: 'colunmFilter',
-                eleType: 'switchButton',
-                currentValue: false,
-              },
-              {
-                title: 'Show table footer',
-                name: 'Show table footer',
-                component: SwitchButton,
-                mapTo: 'showTableFooter',
                 eleType: 'switchButton',
                 currentValue: false,
               },
@@ -128,7 +114,7 @@ export const createDatatableTypeDefinition = (params: any = {}) => ({
       },
     ],
   },
-  visConfig: {
+  visconfig: {
     layout: {
       ...sharedConfigs.layout,
     },
