@@ -44,6 +44,11 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
       ? dataConfig?.chartStyles?.showTableHeader
       : visualizations.vis.showtableheader;
 
+  const colunmFilter =
+    typeof dataConfig?.chartStyles?.colunmFilter !== 'undefined'
+      ? dataConfig?.chartStyles?.colunmFilter
+      : visualizations.vis.colunmfilter;
+
   useEffect(() => {
     document.addEventListener('keydown', hideGridFullScreenHandler);
     return () => {
@@ -90,13 +95,13 @@ export const DataTable = ({ visualizations, layout, config }: any) => {
     return {
       sortable: true,
       resizable: true,
-      filter: true,
+      filter: colunmFilter,
       flex: 1,
-      suppressMenu: true,
+      suppressMenu: false,
       minWidth: COLUMN_DEFAULT_MIN_WIDTH,
       headerHeight: 400,
     };
-  }, []);
+  }, [colunmFilter]);
 
   const onPageSizeChanged = useCallback(
     (val: number) => {

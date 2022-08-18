@@ -33,6 +33,7 @@ export const createDatatableTypeDefinition = (params: any = {}) => ({
   icon: LensIconChartDatatable,
   showtableheader: true,
   enablepagination: true,
+  colunmfilter: false,
   editorConfig: {
     panelTabs: [
       {
