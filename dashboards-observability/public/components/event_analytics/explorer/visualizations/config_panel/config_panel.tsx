@@ -25,11 +25,7 @@ import { getDefaultSpec } from '../visualization_specs/default_spec';
 import { TabContext } from '../../../hooks';
 import { DefaultEditorControls } from './config_panel_footer';
 import { getVisType } from '../../../../visualizations/charts/vis_types';
-import {
-  ENABLED_VIS_TYPES,
-  ValueOptionsAxes,
-  visChartTypes,
-} from '../../../../../../common/constants/shared';
+import { ENABLED_VIS_TYPES, visChartTypes } from '../../../../../../common/constants/shared';
 import { VIZ_CONTAIN_XY_AXIS } from '../../../../../../common/constants/explorer';
 
 const CONFIG_LAYOUT_TEMPLATE = `

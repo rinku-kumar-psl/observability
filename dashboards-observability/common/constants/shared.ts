@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { IField } from '../../common/types/explorer';
+import { DefaultChartStylesProps, IField } from '../../common/types/explorer';
 import CSS from 'csstype';
 
 // Client route
