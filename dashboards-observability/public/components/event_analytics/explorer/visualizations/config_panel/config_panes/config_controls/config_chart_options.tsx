@@ -8,19 +8,20 @@ import { EuiAccordion, EuiSpacer, EuiForm } from '@elastic/eui';
 import { PanelItem } from './config_panel_item';
 import { SPECTRUM, OPACITY } from '../../../../../../../../common/constants/colors';
 import { elementTypes } from '../../../../../../../../common/constants/explorer';
+import { ConfigPanelProps } from '../../../../../../../../common/types/explorer';
 
 export const ConfigChartOptions = ({
   visualizations,
   schemas,
   vizState,
   handleConfigChange,
-}: any) => {
+}: ConfigPanelProps) => {
   const { data } = visualizations;
   const { metadata: { fields = [] } = {}, tree_map } = data?.rawVizData;
 
   const handleConfigurationChange = useCallback(
     (stateFiledName) => {
-      return (changes) => {
+      return (changes: string | number) => {
         handleConfigChange({
           ...vizState,
           [stateFiledName]: changes,
@@ -31,10 +32,10 @@ export const ConfigChartOptions = ({
   );
 
   const currentSchemas = useMemo(() => {
-    if (vizState.colorMode === undefined || vizState.colorMode[0].name === SPECTRUM) {
+    if (vizState?.colorMode === undefined || vizState?.colorMode[0].name === SPECTRUM) {
       return schemas.filter((schema) => schema.mapTo !== 'color');
     }
-    if (vizState.colorMode && vizState.colorMode[0].name === OPACITY) {
+    if (vizState.colorMode && vizState?.colorMode[0].name === OPACITY) {
       return schemas.filter((schema) => schema.mapTo !== 'scheme');
     }
     return schemas;
@@ -43,7 +44,7 @@ export const ConfigChartOptions = ({
   const dimensions = useMemo(() => {
     return (
       currentSchemas &&
-      currentSchemas.map((schema, index) => {
+      currentSchemas.map((schema, index: number) => {
         let params = {
           title: schema.name,
           vizState,
@@ -56,21 +57,21 @@ export const ConfigChartOptions = ({
             params = {
               ...params,
               colorPalettes: schema.options || [],
-              selectedColor: vizState[schema.mapTo] || schema.defaultState,
+              selectedColor: (vizState && vizState[schema.mapTo]) || schema.defaultState,
               onSelectChange: handleConfigurationChange(schema.mapTo),
             };
             break;
           case elementTypes.SingleColorPicker:
             params = {
               ...params,
-              selectedColor: vizState[schema.mapTo] || schema.defaultState,
+              selectedColor: (vizState && vizState[schema.mapTo]) || schema.defaultState,
               onSelectChange: handleConfigurationChange(schema.mapTo),
             };
             break;
           case elementTypes.Colorpicker:
             params = {
               ...params,
-              selectedColor: vizState[schema.mapTo] || schema?.defaultState,
+              selectedColor: (vizState && vizState[schema.mapTo]) || schema?.defaultState,
               colorPalettes: schema.options || [],
               onSelectChange: handleConfigurationChange(schema.mapTo),
             };
@@ -78,7 +79,7 @@ export const ConfigChartOptions = ({
           case elementTypes.TreemapColorPicker:
             params = {
               ...params,
-              selectedColor: vizState[schema.mapTo] || schema?.defaultState,
+              selectedColor: (vizState && vizState[schema.mapTo]) || schema?.defaultState,
               colorPalettes: schema.options || [],
               numberOfParents:
                 (tree_map?.dataConfig?.dimensions !== undefined &&
@@ -89,8 +90,8 @@ export const ConfigChartOptions = ({
           case elementTypes.Input:
             params = {
               ...params,
-              currentValue: vizState[schema.mapTo] || '',
-              numValue: vizState[schema.mapTo] || '',
+              currentValue: (vizState && vizState[schema.mapTo]) || '',
+              numValue: (vizState && vizState[schema.mapTo]) || '',
               handleInputChange: handleConfigurationChange(schema.mapTo),
             };
             break;
@@ -98,7 +99,7 @@ export const ConfigChartOptions = ({
             params = {
               ...params,
               maxRange: schema.props.max,
-              currentRange: vizState[schema.mapTo] || schema?.defaultState,
+              currentRange: (vizState && vizState[schema.mapTo]) || schema?.defaultState,
               handleSliderChange: handleConfigurationChange(schema.mapTo),
             };
             break;
@@ -106,7 +107,7 @@ export const ConfigChartOptions = ({
             params = {
               ...params,
               title: schema.name,
-              currentValue: vizState[schema.mapTo] || false,
+              currentValue: (vizState && vizState[schema.mapTo]) || false,
               onToggle: handleConfigurationChange(schema.mapTo),
             };
             break;
@@ -119,7 +120,8 @@ export const ConfigChartOptions = ({
                 ...btn,
                 label: btn.name,
               })),
-              idSelected: vizState[schema.mapTo] || schema?.props?.defaultSelections[0]?.id,
+              idSelected:
+                (vizState && vizState[schema.mapTo]) || schema?.props?.defaultSelections[0]?.id,
               handleButtonChange: handleConfigurationChange(schema.mapTo),
             };
             break;
@@ -133,7 +135,7 @@ export const ConfigChartOptions = ({
                 fields.map((item) => ({ ...item })),
               onSelectChange: handleConfigurationChange(schema.mapTo),
               isSingleSelection: schema.isSingleSelection,
-              selectedAxis: vizState[schema.mapTo] || schema.defaultState,
+              selectedAxis: (vizState && vizState[schema.mapTo]) || schema.defaultState,
             };
         }
 

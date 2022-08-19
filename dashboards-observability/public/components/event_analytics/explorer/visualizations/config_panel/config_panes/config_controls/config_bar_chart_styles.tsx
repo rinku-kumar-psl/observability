@@ -6,7 +6,10 @@
 import React, { useMemo, useCallback, Fragment } from 'react';
 import { EuiAccordion, EuiSpacer } from '@elastic/eui';
 import { ButtonGroupItem } from './config_button_group';
-import { IConfigPanelOptionSection } from '../../../../../../../../common/types/explorer';
+import {
+  ConfigPanelProps,
+  IConfigPanelOptionSection,
+} from '../../../../../../../../common/types/explorer';
 
 export const ConfigBarChartStyles = ({
   visualizations,
@@ -15,13 +18,10 @@ export const ConfigBarChartStyles = ({
   handleConfigChange,
   sectionName,
   sectionId = 'chartStyles',
-}: any) => {
-  const { data } = visualizations;
-  const { data: vizData = {}, metadata: { fields = [] } = {} } = data?.rawVizData;
-
+}: ConfigPanelProps) => {
   const handleConfigurationChange = useCallback(
     (stateFieldName) => {
-      return (changes) => {
+      return (changes: string | number) => {
         handleConfigChange({
           ...vizState,
           [stateFieldName]: changes,
@@ -66,7 +66,8 @@ export const ConfigBarChartStyles = ({
                 ...btn,
                 label: btn.name,
               })),
-              idSelected: vizState[schema.mapTo] || schema?.props?.defaultSelections[0]?.id,
+              idSelected:
+                (vizState && vizState[schema.mapTo]) || schema?.props?.defaultSelections[0]?.id,
               handleButtonChange: handleConfigurationChange(schema.mapTo),
             };
             return createDimensionComponent(params);
@@ -74,7 +75,7 @@ export const ConfigBarChartStyles = ({
           if (schema.eleType === 'input') {
             params = {
               title: schema.name,
-              currentValue: vizState[schema.mapTo] || '',
+              currentValue: (vizState && vizState[schema.mapTo]) || '',
               handleInputChange: handleConfigurationChange(schema.mapTo),
               vizState,
               ...schema.props,
@@ -87,7 +88,7 @@ export const ConfigBarChartStyles = ({
               minRange: schema?.props?.min || 0,
               maxRange: schema?.props?.max || 100,
               step: schema?.props?.step || 1,
-              currentRange: vizState[schema.mapTo] || schema?.defaultState,
+              currentRange: (vizState && vizState[schema.mapTo]) || schema?.defaultState,
               ticks: schema?.props?.ticks,
               showTicks: schema?.props?.showTicks || false,
               handleSliderChange: handleConfigurationChange(schema.mapTo),

@@ -306,3 +306,15 @@ export interface ValueOptionsAxes {
   series?: IField[];
   value?: IField[];
 }
+export interface ConfigPanelProps {
+  visualizations: IVisualizationContainerProps;
+  vizState: { [key: string]: any } | undefined; // TODO: string | number | string[] | number[]
+  panelOptionsValues?: {
+    title: string;
+    description: string;
+  };
+  handleConfigChange: (value: { [key: string]: string | number }) => void;
+  schemas?: any;
+  sectionName?: string;
+  sectionId?: string;
+}

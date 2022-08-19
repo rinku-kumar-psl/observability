@@ -12,9 +12,7 @@ import { ConfigPanelOptionGauge } from './config_panel_option_gauge';
 const helpText = 'Name your visualization.';
 
 export const ConfigPanelOptions = ({ visualizations, handleConfigChange, vizState }: any) => {
-  const { dataConfig = {} } = visualizations?.data?.userConfigs;
   const { name } = visualizations?.vis;
-
   const [panelOptionsValues, setPanelOptionsValues] = useState({
     title: '',
     description: '',
@@ -64,7 +62,6 @@ export const ConfigPanelOptions = ({ visualizations, handleConfigChange, vizStat
         </EuiFormRow>
         {visualizations?.vis?.name?.toLowerCase() === visChartTypes.Gauge && (
           <ConfigPanelOptionGauge
-            onChange={handleTextChange}
             handleConfigChange={handleConfigChange}
             visualizations={visualizations}
             vizState={vizState}

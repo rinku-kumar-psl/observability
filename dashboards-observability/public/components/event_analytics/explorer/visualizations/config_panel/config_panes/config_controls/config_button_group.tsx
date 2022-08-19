@@ -17,14 +17,18 @@ interface ToggleGroupProps {
   handleButtonChange: (id: string, value?: any) => void;
 }
 export const ButtonGroupItem: React.FC<ToggleGroupProps> = ({
-  title, legend, groupOptions, idSelected, handleButtonChange
+  title,
+  legend,
+  groupOptions,
+  idSelected,
+  handleButtonChange,
 }) => (
   <>
     <EuiTitle size="xxs">
       <h3>{title}</h3>
     </EuiTitle>
     <EuiSpacer size="s" />
-    <div style={{ width: "fit-content" }}>
+    <div style={{ width: 'fit-content' }}>
       <EuiButtonGroup
         id={htmlIdGenerator('button-select')()}
         name={title}
