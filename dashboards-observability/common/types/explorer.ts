@@ -274,3 +274,48 @@ export interface ConfigList {
   dimensions?: ConfigListEntry[] | HistogramConfigList[];
   metrics?: ConfigListEntry[];
 }
+
+// gauge chart default parameters
+export interface DefaultGaugeChartParametersProps {
+  GaugeTitleSize: number;
+  DisplayDefaultGauges: number;
+  OrientationDefault: string;
+  TickLength: number;
+  LegendPlacement: string;
+  ThresholdsMaxLimit: number;
+}
+
+export interface DefaultChartStylesProps {
+  DefaultModeLine: string;
+  Interpolation: string;
+  LineWidth: number;
+  FillOpacity: number;
+  MarkerSize: number;
+  ShowLegend: string;
+  LegendPosition: string;
+  LabelAngle: number;
+  DefaultSortSectors: string;
+  DefaultModeScatter: string;
+}
+export interface ValueOptionsAxes {
+  xaxis?: IField[];
+  yaxis?: IField[];
+  zaxis?: IField[];
+  childField?: IField[];
+  valueField?: IField[];
+  series?: IField[];
+  value?: IField[];
+}
+export interface ConfigPanelProps {
+  visualizations?: IVisualizationContainerProps;
+  vizState?: { [key: string]: any } | undefined;
+  panelOptionsValues?: {
+    title: string;
+    description: string;
+  };
+  handleConfigChange?: (value: { [key: string]: string | number }) => void;
+  schemas?: any;
+  sectionName?: string;
+  sectionId?: string;
+  fieldOptionList?: IField[];
+}

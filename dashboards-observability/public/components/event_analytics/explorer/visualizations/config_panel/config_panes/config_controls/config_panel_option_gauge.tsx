@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { EuiFormRow, EuiFieldNumber } from '@elastic/eui';
 import { DefaultGaugeChartParameters } from '../../../../../../../../common/constants/explorer';
+import { ConfigPanelProps } from '../../../../../../../../common/types/explorer';
 
 const helpText = `Limit number of gauges.`;
 
@@ -14,7 +15,7 @@ export const ConfigPanelOptionGauge = ({
   vizState,
   panelOptionsValues,
   handleConfigChange,
-}: any) => {
+}: ConfigPanelProps) => {
   const { dataConfig = {} } = visualizations?.data?.userConfigs;
   const dimensions = dataConfig?.valueOptions?.dimensions
     ? dataConfig.valueOptions.dimensions.filter((i) => i.name !== '')
@@ -41,7 +42,7 @@ export const ConfigPanelOptionGauge = ({
         onBlur={() => {
           const newPanelOptions = {
             ...panelOptionsValues,
-            numberOfGauges: numberOfGauges,
+            numberOfGauges,
           };
           handleConfigChange(newPanelOptions);
         }}

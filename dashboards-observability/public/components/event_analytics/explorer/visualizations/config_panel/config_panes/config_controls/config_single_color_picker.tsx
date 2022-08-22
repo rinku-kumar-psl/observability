@@ -16,7 +16,13 @@ import {
 import { lightenColor } from '../../../../../../event_analytics/utils/utils';
 import { SINGLE_COLOR_PALETTE } from '../../../../../../../../common/constants/colors';
 
-export const SingleColorPicker = ({ title, selectedColor, onSelectChange }: any) => {
+interface Props {
+  title: string;
+  selectedColor: { name: string; color: string };
+  onSelectChange: (data: { name: string; color: string }) => void;
+}
+
+export const SingleColorPicker = ({ title, selectedColor, onSelectChange }: Props) => {
   const onColorChange = (value: string) => {
     onSelectChange({ name: SINGLE_COLOR_PALETTE, color: value });
   };

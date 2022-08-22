@@ -8,13 +8,16 @@ import { EuiFieldText, EuiForm, EuiFormRow, EuiTextArea, EuiAccordion } from '@e
 import { visChartTypes } from '../../../../../../../../common/constants/shared';
 import { DefaultGaugeChartParameters } from '../../../../../../../../common/constants/explorer';
 import { ConfigPanelOptionGauge } from './config_panel_option_gauge';
+import { ConfigPanelProps } from '../../../../../../../../common/types/explorer';
 
 const helpText = 'Name your visualization.';
 
-export const ConfigPanelOptions = ({ visualizations, handleConfigChange, vizState }: any) => {
-  const { dataConfig = {} } = visualizations?.data?.userConfigs;
+export const ConfigPanelOptions = ({
+  visualizations,
+  handleConfigChange,
+  vizState,
+}: ConfigPanelProps) => {
   const { name } = visualizations?.vis;
-
   const [panelOptionsValues, setPanelOptionsValues] = useState({
     title: '',
     description: '',
@@ -64,7 +67,6 @@ export const ConfigPanelOptions = ({ visualizations, handleConfigChange, vizStat
         </EuiFormRow>
         {visualizations?.vis?.name?.toLowerCase() === visChartTypes.Gauge && (
           <ConfigPanelOptionGauge
-            onChange={handleTextChange}
             handleConfigChange={handleConfigChange}
             visualizations={visualizations}
             vizState={vizState}
