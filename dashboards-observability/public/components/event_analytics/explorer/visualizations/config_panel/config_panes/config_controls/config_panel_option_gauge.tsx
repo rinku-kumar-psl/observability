@@ -15,7 +15,7 @@ export const ConfigPanelOptionGauge = ({
   vizState,
   panelOptionsValues,
   handleConfigChange,
-}: any) => {
+}: ConfigPanelProps) => {
   const { dataConfig = {} } = visualizations?.data?.userConfigs;
   const dimensions = dataConfig?.valueOptions?.dimensions
     ? dataConfig.valueOptions.dimensions.filter((i) => i.name !== '')

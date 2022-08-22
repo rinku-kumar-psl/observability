@@ -5,11 +5,12 @@
 
 import React, { useCallback } from 'react';
 import { EuiMarkdownEditor, EuiAccordion } from '@elastic/eui';
+import { ConfigPanelProps } from '../../../../../../../../common/types/explorer';
 
-export const ConfigText = ({ visualizations, schemas, vizState, handleConfigChange }) => {
+export const ConfigText = ({ vizState, handleConfigChange }: ConfigPanelProps) => {
   const handleTextChange = useCallback(
     (stateFiledName) => {
-      return (changes) => {
+      return (changes: string) => {
         handleConfigChange({
           ...vizState,
           [stateFiledName]: changes,
@@ -24,7 +25,7 @@ export const ConfigText = ({ visualizations, schemas, vizState, handleConfigChan
       <EuiMarkdownEditor
         aria-label="EUI markdown editor demo"
         placeholder="Your markdown here..."
-        value={vizState.markdown || ''}
+        value={vizState?.markdown || ''}
         onChange={handleTextChange('markdown')}
         height={400}
       />

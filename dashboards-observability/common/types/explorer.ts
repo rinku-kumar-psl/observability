@@ -307,14 +307,15 @@ export interface ValueOptionsAxes {
   value?: IField[];
 }
 export interface ConfigPanelProps {
-  visualizations: IVisualizationContainerProps;
-  vizState: { [key: string]: any } | undefined;
+  visualizations?: IVisualizationContainerProps;
+  vizState?: { [key: string]: any } | undefined;
   panelOptionsValues?: {
     title: string;
     description: string;
   };
-  handleConfigChange: (value: { [key: string]: string | number }) => void;
+  handleConfigChange?: (value: { [key: string]: string | number }) => void;
   schemas?: any;
   sectionName?: string;
   sectionId?: string;
+  fieldOptionList?: IField[];
 }

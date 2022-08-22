@@ -27,8 +27,9 @@ import { ButtonGroupItem } from './config_button_group';
 import { visChartTypes } from '../../../../../../../../common/constants/shared';
 import { ConfigList } from '../../../../../../../../common/types/explorer';
 import { TabContext } from '../../../../../hooks';
+import { ConfigPanelProps } from '../../../../../../../../common/types/explorer';
 
-export const DataConfigPanelItem = ({ fieldOptionList, visualizations }: any) => {
+export const DataConfigPanelItem = ({ fieldOptionList, visualizations }: ConfigPanelProps) => {
   const dispatch = useDispatch();
   const { tabId, curVisId, changeVisualizationConfig } = useContext<any>(TabContext);
   const { data } = visualizations;
