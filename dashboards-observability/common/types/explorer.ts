@@ -286,7 +286,7 @@ export interface DefaultGaugeChartParametersProps {
 }
 
 export interface DefaultChartStylesProps {
-  DefaultMode: string;
+  DefaultModeLine: string;
   Interpolation: string;
   LineWidth: number;
   FillOpacity: number;
@@ -295,8 +295,8 @@ export interface DefaultChartStylesProps {
   LegendPosition: string;
   LabelAngle: number;
   DefaultSortSectors: string;
+  DefaultModeScatter: string;
 }
-
 export interface ValueOptionsAxes {
   xaxis?: IField[];
   yaxis?: IField[];
@@ -308,7 +308,7 @@ export interface ValueOptionsAxes {
 }
 export interface ConfigPanelProps {
   visualizations: IVisualizationContainerProps;
-  vizState: { [key: string]: any } | undefined; // TODO: string | number | string[] | number[]
+  vizState: { [key: string]: any } | undefined;
   panelOptionsValues?: {
     title: string;
     description: string;

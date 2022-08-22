@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { DefaultChartStylesProps, IField } from '../../common/types/explorer';
 import CSS from 'csstype';
+import { DefaultChartStylesProps, IField } from '../../common/types/explorer';
 
 // Client route
 export const PPL_BASE = '/api/ppl';
@@ -112,7 +112,7 @@ export const ENABLED_VIS_TYPES = [
   visChartTypes.LogsView,
 ];
 
-//Live tail constants
+// Live tail constants
 export const LIVE_OPTIONS = [
   {
     label: '5s',
@@ -162,18 +162,6 @@ export const LIVE_OPTIONS = [
 ];
 
 export const LIVE_END_TIME = 'now';
-export interface DefaultChartStylesProps {
-  DefaultModeLine: string;
-  Interpolation: string;
-  LineWidth: number;
-  FillOpacity: number;
-  MarkerSize: number;
-  ShowLegend: string;
-  LegendPosition: string;
-  LabelAngle: number;
-  DefaultSortSectors: string;
-  DefaultModeScatter: string;
-}
 
 export const DefaultChartStyles: DefaultChartStylesProps = {
   DefaultModeLine: 'lines',

@@ -21,7 +21,7 @@ import { DefaultChartStyles } from '../../../../../common/constants/shared';
 const sharedConfigs = getPlotlySharedConfigs();
 const VIS_CATEGORY = getPlotlyCategory();
 
-const { SortSectors } = DefaultChartStyles;
+const { DefaultSortSectors } = DefaultChartStyles;
 
 export interface BarTypeParams {}
 
@@ -103,7 +103,7 @@ export const createTreeMapDefinition = (params: BarTypeParams = {}) => ({
                     { name: 'Largest to Smallest', id: 'largest_to_smallest' },
                     { name: 'Random', id: 'random' },
                   ],
-                  defaultSelections: [{ name: 'Largest to Smallest', id: SortSectors }],
+                  defaultSelections: [{ name: 'Largest to Smallest', id: DefaultSortSectors }],
                 },
               },
             ],
